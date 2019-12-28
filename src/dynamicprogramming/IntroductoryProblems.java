@@ -112,7 +112,7 @@ public class IntroductoryProblems {
     }
 
     //Longest Palindromic Substring - Manchor's algorithm:
-    public String manchorsAlgorithm(String s) {
+    public static String manchorsAlgorithm(String s) {
         int N = s.length();
         if (N == 0) return "";
         N = 2 * N + 1; //Position count.
@@ -150,7 +150,7 @@ public class IntroductoryProblems {
                 L[i] = 0;
                 expand = true;  // expansion required.
             }
-            if (expand == true) {
+            if (expand) {
                 //Attempt to expand palindrome centered at currentRightPosition i.
                 //Here for odd positions, we compare characters,
                 //if match then increment LPS Length by ONE.

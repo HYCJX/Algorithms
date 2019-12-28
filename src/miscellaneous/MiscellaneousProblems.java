@@ -1,4 +1,4 @@
 package miscellaneous;
 
-public class Miscellaneous {
+public class MiscellaneousProblems {
 }

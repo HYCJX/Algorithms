@@ -6,7 +6,7 @@ import java.util.Map;
 public class SlidingWindow {
 
     //Longest Substring Without Repeating Characters
-    public int LengthOfSubstring(String s) {
+    public static int LengthOfSubstring(String s) {
         int n = s.length();
         int result = 0, i = 0, j = 0;
         Map<Character, Integer> map = new HashMap<>();

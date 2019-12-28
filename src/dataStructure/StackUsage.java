@@ -6,7 +6,7 @@ import java.util.Deque;
 public class StackUsage {
 
     //Valid Parentheses
-    public boolean isValid(String s) {
+    public static boolean isValid(String s) {
         Deque<Character> stack = new ArrayDeque<>();
         for (Character c : s.toCharArray()) {
             if (c == '(' || c == '{' || c == '[') {

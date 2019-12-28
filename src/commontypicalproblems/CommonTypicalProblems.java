@@ -35,7 +35,7 @@ public class CommonTypicalProblems {
     }
 
     //Three Sum
-    public List<List<Integer>> threeSum(int[] nums) {
+    public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         int n = nums.length;
         Arrays.sort(nums);

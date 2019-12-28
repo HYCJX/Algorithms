@@ -61,7 +61,7 @@ public class ListUsage {
     /* Linked List */
 
     //Remove the nth node counting from the end of a linked list:
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode first = dummy;
@@ -78,7 +78,7 @@ public class ListUsage {
     }
 
     //Merge k sorted linked lists:
-    public ListNode mergeKLists(ListNode[] lists) {
+    public static ListNode mergeKLists(ListNode[] lists) {
         Comparator<ListNode> cmp = Comparator.comparingInt(o -> o.val);
         Queue<ListNode> priorityQueue = new PriorityQueue<ListNode>(cmp);
         for (ListNode l : lists) {
@@ -100,7 +100,7 @@ public class ListUsage {
         return head.next;
     }
 
-    private class ListNode {
+    private static class ListNode {
 
         int val;
         ListNode next;
