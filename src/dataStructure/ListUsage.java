@@ -9,18 +9,18 @@ public class ListUsage {
     /* Array List */
 
     //Find the first and the last occurance of an element in a sorted array --- Modified binary search:
-    public int[] searchRange(int[] nums, int target) {
-        int[] targetRange = {-1,-1};
-        int leftIndex = binarySearch(nums, target, true);
+    public static int[] searchRange(int[] nums, int target) {
+        int[] targetRange = {-1, -1};
+        int leftIndex = binarySearchM1(nums, target, true);
         if (leftIndex == nums.length || nums[leftIndex] != target) {
             return targetRange;
         }
         targetRange[0] = leftIndex;
-        targetRange[1] = binarySearch(nums, target, false) - 1;
+        targetRange[1] = binarySearchM1(nums, target, false) - 1;
         return targetRange;
     }
 
-    private int binarySearch(int[]nums, int target, boolean isFindingLeft) {
+    private static int binarySearchM1(int[] nums, int target, boolean isFindingLeft) {
         int low = 0, high = nums.length;
         while (low < high) {
             int mid = (low + high) / 2;
@@ -31,6 +31,31 @@ public class ListUsage {
             }
         }
         return low;
+    }
+
+    //Search an element in a rotated sorted list --- Modified binary search:
+    public static int searchRotatedSorted(int[] nums, int target) {
+        return binarySearchM2(nums, target, 0, nums.length - 1);
+    }
+
+    private static int binarySearchM2(int[] arr, int key, int low, int high) {
+        if (low > high) {
+            return -1;
+        }
+        int mid = (low + high) / 2;
+        if (arr[mid] == key) {
+            return mid;
+        }
+        if (arr[low] <= arr[mid]) {
+            if (key >= arr[low] && key <= arr[mid]) {
+                return binarySearchM2(arr, key, low, mid - 1);
+            }
+            return binarySearchM2(arr, key, mid + 1, high);
+        }
+        if (key >= arr[mid] && key <= arr[high]) {
+            return binarySearchM2(arr, key, mid + 1, high);
+        }
+        return binarySearchM2(arr, key, low, mid - 1);
     }
 
     /* Linked List */
@@ -56,14 +81,14 @@ public class ListUsage {
     public ListNode mergeKLists(ListNode[] lists) {
         Comparator<ListNode> cmp = Comparator.comparingInt(o -> o.val);
         Queue<ListNode> priorityQueue = new PriorityQueue<ListNode>(cmp);
-        for(ListNode l : lists){
-            if(l!=null){
+        for (ListNode l : lists) {
+            if (l != null) {
                 priorityQueue.add(l);
             }
         }
         ListNode head = new ListNode(0);
         ListNode point = head;
-        while(!priorityQueue.isEmpty()) {
+        while (!priorityQueue.isEmpty()) {
             ListNode nextNode = priorityQueue.poll();
             point.next = nextNode;
             point = point.next;

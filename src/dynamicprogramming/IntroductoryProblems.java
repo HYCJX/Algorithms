@@ -11,7 +11,7 @@ public class IntroductoryProblems {
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
             if (map.containsKey(complement)) {
-                return new int[] {map.get(complement), i};
+                return new int[]{map.get(complement), i};
             }
             map.put(nums[i], i);
         }
@@ -40,76 +40,6 @@ public class IntroductoryProblems {
             right++;
         }
         return left - right - 1;
-    }
-
-    //Longest Palindromic Substring - Manchor's algorithm:
-    public String manchorsAlgorithm(String s) {
-        int N = s.length();
-        if (N == 0) return "";
-        N = 2*N + 1; //Position count.
-        int[] L = new int[N]; //LPS Length Array.
-        L[0] = 0;
-        L[1] = 1;
-        int C = 1; //centerPosition.
-        int R = 2; //centerRightPosition.
-        int i = 2; //currentRightPosition.
-        int iMirror; //currentLeftPosition.
-        boolean expand;
-        int diff = -1;
-        int maxLPSLength = 0;
-        int maxLPSCenterPosition = 0;
-        for (i = 2; i < N; i++) {
-            //Get currentLeftPosition iMirror for currentRightPosition i:
-            iMirror  = 2*C-i;
-            //Reset expand - means no expansion required:
-            expand = false;
-            diff = R - i;
-            //If currentRightPosition i is within centerRightPosition R:
-            if(diff > 0) {
-                if(L[iMirror] < diff) { // Case 1.
-                    L[i] = L[iMirror];
-                } else if (L[iMirror] == diff && i == N - 1) { // Case 2.
-                    L[i] = L[iMirror];
-                } else if(L[iMirror] == diff && i < N-1) { // Case 3.
-                    L[i] = L[iMirror];
-                    expand = true;  // expansion required.
-                } else if(L[iMirror] > diff)  { // Case 4.
-                    L[i] = diff;
-                    expand = true;  // expansion required.
-                }
-            } else {
-                L[i] = 0;
-                expand = true;  // expansion required.
-            }
-            if (expand == true) {
-                //Attempt to expand palindrome centered at currentRightPosition i.
-                //Here for odd positions, we compare characters,
-                //if match then increment LPS Length by ONE.
-                //If even position, we just increment LPS by ONE,
-                //without any character comparison.
-                while ((i + L[i]) < N &&
-                        (i - L[i]) > 0 &&
-                        (((i + L[i] + 1) % 2 == 0) ||
-                                (s.charAt((i+L[i]-1)/2) == s.charAt((i-L[i]-1)/2)))) {
-                    L[i]++;
-                }
-                if ((i + L[i] + 1) % 2 != 0) L[i]--;
-            }
-            if(L[i] > maxLPSLength) { // Track maxLPSLength.
-                maxLPSLength = L[i];
-                maxLPSCenterPosition = i;
-            }
-            // If palindrome centered at currentRightPosition i
-            // expand beyond centerRightPosition R,
-            // adjust centerPosition C based on expanded palindrome.
-            if (i + L[i] > R) {
-                C = i;
-                R = i + L[i];
-            }
-        }
-        int start = (maxLPSCenterPosition - maxLPSLength) / 2;
-        int end = start + maxLPSLength;
-        return s.substring(start, end);
     }
 
     //Maximum Sub-array:
@@ -148,6 +78,7 @@ public class IntroductoryProblems {
         }
         return Math.min(cost[cost.length - 1], cost[cost.length - 2]);
     }
+
     //M2: From the end:
     public static int minCostStairsClimbing(int[] cost) {
         int res1 = 0, res2 = 0;
@@ -178,6 +109,76 @@ public class IntroductoryProblems {
             }
         }
         return dp[0][0];
+    }
+
+    //Longest Palindromic Substring - Manchor's algorithm:
+    public String manchorsAlgorithm(String s) {
+        int N = s.length();
+        if (N == 0) return "";
+        N = 2 * N + 1; //Position count.
+        int[] L = new int[N]; //LPS Length Array.
+        L[0] = 0;
+        L[1] = 1;
+        int C = 1; //centerPosition.
+        int R = 2; //centerRightPosition.
+        int i = 2; //currentRightPosition.
+        int iMirror; //currentLeftPosition.
+        boolean expand;
+        int diff = -1;
+        int maxLPSLength = 0;
+        int maxLPSCenterPosition = 0;
+        for (i = 2; i < N; i++) {
+            //Get currentLeftPosition iMirror for currentRightPosition i:
+            iMirror = 2 * C - i;
+            //Reset expand - means no expansion required:
+            expand = false;
+            diff = R - i;
+            //If currentRightPosition i is within centerRightPosition R:
+            if (diff > 0) {
+                if (L[iMirror] < diff) { // Case 1.
+                    L[i] = L[iMirror];
+                } else if (L[iMirror] == diff && i == N - 1) { // Case 2.
+                    L[i] = L[iMirror];
+                } else if (L[iMirror] == diff && i < N - 1) { // Case 3.
+                    L[i] = L[iMirror];
+                    expand = true;  // expansion required.
+                } else if (L[iMirror] > diff) { // Case 4.
+                    L[i] = diff;
+                    expand = true;  // expansion required.
+                }
+            } else {
+                L[i] = 0;
+                expand = true;  // expansion required.
+            }
+            if (expand == true) {
+                //Attempt to expand palindrome centered at currentRightPosition i.
+                //Here for odd positions, we compare characters,
+                //if match then increment LPS Length by ONE.
+                //If even position, we just increment LPS by ONE,
+                //without any character comparison.
+                while ((i + L[i]) < N &&
+                        (i - L[i]) > 0 &&
+                        (((i + L[i] + 1) % 2 == 0) ||
+                                (s.charAt((i + L[i] - 1) / 2) == s.charAt((i - L[i] - 1) / 2)))) {
+                    L[i]++;
+                }
+                if ((i + L[i] + 1) % 2 != 0) L[i]--;
+            }
+            if (L[i] > maxLPSLength) { // Track maxLPSLength.
+                maxLPSLength = L[i];
+                maxLPSCenterPosition = i;
+            }
+            // If palindrome centered at currentRightPosition i
+            // expand beyond centerRightPosition R,
+            // adjust centerPosition C based on expanded palindrome.
+            if (i + L[i] > R) {
+                C = i;
+                R = i + L[i];
+            }
+        }
+        int start = (maxLPSCenterPosition - maxLPSLength) / 2;
+        int end = start + maxLPSLength;
+        return s.substring(start, end);
     }
 
 
