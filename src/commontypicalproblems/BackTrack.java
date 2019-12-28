@@ -24,4 +24,26 @@ public class BackTrack {
             backtrack(result, current + ")", open, close + 1, max);
         }
     }
+
+    //Generate all permutations of a list:
+    public static  List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        find(result, new ArrayList<>(), nums);
+        return result;
+    }
+
+    private static void find(List<List<Integer>> result, List<Integer> workingList, int[] nums) {
+        if (workingList.size() == nums.length) {
+            result.add(new ArrayList<>(workingList));
+        } else {
+            for (int num : nums) {
+                if (workingList.contains(num)) {
+                    continue;
+                }
+                workingList.add(num);
+                find(result, workingList, nums);
+                workingList.remove(workingList.size() - 1);
+            }
+        }
+    }
 }
