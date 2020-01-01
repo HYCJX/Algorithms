@@ -58,6 +58,40 @@ public class ListUsage {
         return binarySearchM2(arr, key, low, mid - 1);
     }
 
+    //Sort a list with only 0s, 1s and 2s in one pass:
+    public static void sortThreeNumbers(int[] nums) {
+        int i = 0, j = nums.length-1, k = 0;
+        while(i <= j) {
+            if(nums[i] == 0) {
+                i++;
+            } else if(nums[i] == 1) {
+                if(nums[j] == 2) {
+                    j--;
+                    continue;
+                } else if (nums[j] == 0) {
+                    nums[i] = 0;
+                    nums[j] = 1;
+                    i++;
+                } else {
+                    k = Math.max(i + 1, k);
+                    while (k < nums.length && nums[k] != 0) {
+                        k++;
+                    }
+                    if (k < nums.length){
+                        nums[k] = 1;
+                        nums[i] = 0;
+                    }
+                    i++;
+                }
+            } else if (nums[i] == 2) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                j--;
+            }
+        }
+    }
+
     /* Linked List */
 
     //Remove the nth node counting from the end of a linked list:
