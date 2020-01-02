@@ -8,6 +8,7 @@ public class MediumProblems {
     public static boolean isMatch(String s, String p) {
         boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         dp[s.length()][p.length()] = true;
+        //Build from tail to head.
         for (int i = s.length(); i >= 0; i--) {
             for (int j = p.length() - 1; j >= 0; j--) {
                 boolean first_match = i < s.length() &&

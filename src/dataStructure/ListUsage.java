@@ -20,6 +20,7 @@ public class ListUsage {
         return targetRange;
     }
 
+    //@isFindingLeft: indication of whether the method is finding the left boundary or the right boundary.
     private static int binarySearchM1(int[] nums, int target, boolean isFindingLeft) {
         int low = 0, high = nums.length;
         while (low < high) {
@@ -46,6 +47,7 @@ public class ListUsage {
         if (arr[mid] == key) {
             return mid;
         }
+        //The key is which half is sorted.
         if (arr[low] <= arr[mid]) {
             if (key >= arr[low] && key <= arr[mid]) {
                 return binarySearchM2(arr, key, low, mid - 1);
@@ -67,12 +69,12 @@ public class ListUsage {
             } else if(nums[i] == 1) {
                 if(nums[j] == 2) {
                     j--;
-                    continue;
                 } else if (nums[j] == 0) {
                     nums[i] = 0;
                     nums[j] = 1;
                     i++;
                 } else {
+                    //Find a 0 and swap:
                     k = Math.max(i + 1, k);
                     while (k < nums.length && nums[k] != 0) {
                         k++;
@@ -114,7 +116,7 @@ public class ListUsage {
     //Merge k sorted linked lists:
     public static ListNode mergeKLists(ListNode[] lists) {
         Comparator<ListNode> cmp = Comparator.comparingInt(o -> o.val);
-        Queue<ListNode> priorityQueue = new PriorityQueue<ListNode>(cmp);
+        Queue<ListNode> priorityQueue = new PriorityQueue<>(cmp);
         for (ListNode l : lists) {
             if (l != null) {
                 priorityQueue.add(l);

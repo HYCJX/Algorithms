@@ -16,6 +16,7 @@ public class SlidingWindow {
         while (j < n) {
             Character c = s.charAt(j);
             if (map.containsKey(c)) {
+                //Jump to the position where the key has last appeared if needed.
                 i = Math.max(i, map.get(c) + 1);
             }
             map.put(c, j);
@@ -38,6 +39,7 @@ public class SlidingWindow {
             dictT.put(t.charAt(i), count + 1);
         }
         int required = dictT.size();
+        //Maintain a list of useful characters.
         List<Pair<Integer, Character>> filteredS = new ArrayList<>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -45,6 +47,7 @@ public class SlidingWindow {
                 filteredS.add(new Pair<>(i, c));
             }
         }
+        //l - left boundary, r - right boundary, formed - number of characters with their targeted counting reached.
         int l = 0, r = 0, formed = 0;
         Map<Character, Integer> windowCounts = new HashMap<Character, Integer>();
         int[] ans = {-1, 0, 0};
@@ -68,8 +71,10 @@ public class SlidingWindow {
                 if (windowCounts.get(c) < dictT.get(c)) {
                     formed--;
                 }
+                //Try to minimize the window.
                 l++;
             }
+            //Start a new sliding window.
             r++;
         }
         return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
