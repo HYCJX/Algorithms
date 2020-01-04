@@ -57,6 +57,25 @@ public class CommonTypicalProblems {
         return max;
     }
 
+    //Find the longest consecutive sequence (not necessarily sub-sequence) contained in a sequence of numbers.
+    public static int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        int longest = 0;
+        for (int num : set) {
+            if (!set.contains(num - 1)) {
+                int currentNum = num;
+                while (set.contains(currentNum + 1)) {
+                    currentNum++;
+                }
+                longest = Math.max(longest, currentNum - num + 1);
+            }
+        }
+        return longest;
+    }
+
     //Three Sum
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
