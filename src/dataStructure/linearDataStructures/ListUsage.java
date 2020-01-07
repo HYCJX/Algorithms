@@ -1,4 +1,4 @@
-package dataStructure;
+package dataStructure.linearDataStructures;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
