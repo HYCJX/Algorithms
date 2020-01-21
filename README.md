@@ -1,3 +1,3 @@
-# Algorithms
+# Java Algorithms
 
-Typical problems
+Java Implementation of typical algorithms.
